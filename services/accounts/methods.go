@@ -5,5 +5,5 @@ import (
 )
 
 func (c *iAccount) ListAll() ([]*eAccount.Account, error) {
-	return nil, nil
+	return c.model.List()
 }

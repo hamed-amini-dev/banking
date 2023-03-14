@@ -11,6 +11,7 @@ import (
 	"github.com/ha-dev/banking/internal/routes"
 	mAccount "github.com/ha-dev/banking/models/account"
 	"github.com/ha-dev/banking/pkg/constants"
+	"github.com/ha-dev/banking/pkg/db/localdb"
 	sAccount "github.com/ha-dev/banking/services/accounts"
 	"github.com/spf13/viper"
 )
@@ -28,16 +29,17 @@ var (
 func NewApp() (server *http.Server, err error) {
 
 	// ─── DATABASE INITIALIZATION ────────────────────────────────────────────────────
-	//init datastore file
-	{
-		// addr := strings.TrimRight(viper.GetString(constants.HermesAddr), "/")
+	//init datastore
 
+	db, err := localdb.New(localdb.OptionLocalMockFile("accounts-mock.json"))
+	if err != nil {
+		return nil, err
 	}
 
 	// ─────────────────────────────────────────────────────── APP INITIALIZATION ─────
 	newApp := new(app)
 	//Model
-	modelAccount, err := mAccount.New()
+	modelAccount, err := mAccount.New(mAccount.OptionDB(db))
 	if err != nil {
 		return nil, err
 	}

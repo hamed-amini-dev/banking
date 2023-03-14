@@ -24,7 +24,19 @@ func New(ops ...Option) (IAccount, error) {
 }
 
 // ────────────────────────────────────────────────────────────────────────────────
-// List all the room that exist in DB
+// List all the account that exist in DB
 func (s *iAccount) List() ([]*eAccount.Account, error) {
 	return s.db.List(), nil
+}
+
+// ────────────────────────────────────────────────────────────────────────────────
+// Get the account that exist in DB
+func (s *iAccount) Get(ID string) (*eAccount.Account, error) {
+	return s.db.Get(ID)
+}
+
+// ────────────────────────────────────────────────────────────────────────────────
+// Update the account that exist in DB
+func (s *iAccount) Update(acc *eAccount.Account) error {
+	return s.db.Update(acc)
 }

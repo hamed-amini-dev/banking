@@ -3,6 +3,7 @@ package localdb
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 
 	eAccount "github.com/ha-dev/banking/internal/entities/account"
 )
@@ -28,15 +29,35 @@ func New(ops ...Option) (ILocalDB, error) {
 		return nil, err
 	}
 	//
+	log.Println("Load Accounts Complete")
+	//
 	return s, nil
 }
 
 // ────────────────────────────────────────────────────────────────────────────────
-
 func (u *localdbConfig) Get(FieldName string) (*eAccount.Account, error) {
-	return nil, nil
+	for _, v := range accounts {
+		if v.ID == FieldName || v.Balance == FieldName || v.Name == FieldName {
+			return v, nil
+		}
+	}
+
+	return nil, ErrNotFound
 }
 
+// ────────────────────────────────────────────────────────────────────────────────
 func (u *localdbConfig) List() []*eAccount.Account {
 	return accounts
+}
+
+// ────────────────────────────────────────────────────────────────────────────────
+func (u *localdbConfig) Update(acc *eAccount.Account) error {
+	for i := range accounts {
+		if accounts[i].ID == acc.ID {
+			accounts[i].Name = acc.Name
+			accounts[i].Balance = acc.Balance
+			return nil
+		}
+	}
+	return ErrNotFound
 }

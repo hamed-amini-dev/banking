@@ -75,7 +75,8 @@ func (a *app) server() *http.Server {
 		Handler: a.router,
 	}
 
-	log.Println("listen on port: %v", server.Addr)
+	log.Println("System is ready to transfer")
+	log.Println("listen on port:", server.Addr)
 
 	return server
 }

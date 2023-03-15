@@ -31,7 +31,7 @@ func NewApp() (server *http.Server, err error) {
 	// ─── DATABASE INITIALIZATION ────────────────────────────────────────────────────
 	//init datastore
 
-	db, err := localdb.New(localdb.OptionLocalMockFile("accounts-mock.json"))
+	db, err := localdb.New(localdb.OptionLocalMockFile(viper.GetString(constants.MockPath)))
 	if err != nil {
 		return nil, err
 	}

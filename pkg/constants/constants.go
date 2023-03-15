@@ -11,4 +11,8 @@ const (
 
 	// ConfigFileType is the type of configuration file.
 	ConfigFileType = "yml"
+
+	// Mock file Path
+	MockPrefix = "mock"
+	MockPath   = MockPrefix + ".path"
 )

@@ -11,6 +11,7 @@ type iAccount struct {
 
 var _ IAccount = &iAccount{}
 
+//go:generate mockgen -destination=../../testutils/mocks/model/iAccount_mock.go -package=mocks -source=interface.go
 func New(ops ...Option) (IAccount, error) {
 	s := new(iAccount)
 

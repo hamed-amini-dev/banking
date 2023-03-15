@@ -38,28 +38,28 @@ func NewApp() (server *http.Server, err error) {
 
 	// ─────────────────────────────────────────────────────── APP INITIALIZATION ─────
 	newApp := new(app)
-	//Model
+	//Initialize Model layer for working with database data
 	modelAccount, err := mAccount.New(mAccount.OptionDB(db))
 	if err != nil {
 		return nil, err
 	}
-	//Services
+	//Initialize Services for business logic of system layer
 	serviceAccount, err := sAccount.New(sAccount.InitOptionAccountModel(modelAccount))
 	if err != nil {
 		return nil, err
 	}
-	//Handler
+	//Initialize Handler layer for prepare endpoints
 	handlerAccount, err := hAccount.New(hAccount.InitOptionService(serviceAccount))
 	if err != nil {
 		return nil, err
 	}
-	//all router handle
+	//Initialize all router handle for listen on route address
 	var allRoutes []routes.Route
 
 	AccountRoutes := routes.AccountsRoutes(handlerAccount)
 	allRoutes = append(allRoutes, AccountRoutes...)
 
-	// create resource
+	// create resource for running app
 	err = newApp.createResources(allRoutes...)
 	if err != nil {
 		return nil, err

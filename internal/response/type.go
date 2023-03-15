@@ -20,7 +20,10 @@ type Metadata struct {
 	NextPageToken string `json:"next_page_token,omitempty"`
 }
 
-// ────────────────────────────────────────────────────────────────────────────────
+/*
+Handle Error with error package
+return Boolean after Handling error
+*/
 func (r *GenericResponse) HandleError(err error) bool {
 	if err == nil {
 		return false
@@ -33,7 +36,13 @@ func (r *GenericResponse) HandleError(err error) bool {
 	return true
 }
 
-// ────────────────────────────────────────────────────────────────────────────────
+/*
+Send Response request with ResponseWriter
+- status code use for show status of request client send to the service app
+- status code int
+Write json response to response header with json library
+- Json Encoder
+*/
 func (r *GenericResponse) ResponseJson(w http.ResponseWriter, status int) {
 	w.Header().Add("Content-Type", "application/json; charset=UTF-8")
 	err := json.NewEncoder(w).Encode(r)

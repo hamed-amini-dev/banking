@@ -6,6 +6,9 @@ import (
 
 type Option func(*iAccount) error
 
+/*
+Init option service for getting service business logic account layer
+*/
 func InitOptionService(service sAccount.IAccount) Option {
 	return func(is *iAccount) error {
 		is.service = service

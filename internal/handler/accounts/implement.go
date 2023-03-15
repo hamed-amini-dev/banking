@@ -8,6 +8,11 @@ type iAccount struct {
 	service sAccount.IAccount
 }
 
+/*
+create object handler for handling route
+need option for getting service module
+return handler object for using logic functionality
+*/
 func New(ops ...Option) (IAccount, error) {
 	h := new(iAccount)
 	for _, fn := range ops {

@@ -31,6 +31,7 @@ func DefaultHTTPHandler(handler customHandlerFunc) func(http.ResponseWriter, *ht
 			return
 		}
 
+		// ─── Create Generic Request  ──────────────────────────────────────────
 		genReq, err := request.NewGenericHTTPRequestFromHTTPRequest(req)
 		if err != nil {
 			respondError(writer, code2Http[status.Code(err)], err.Error())

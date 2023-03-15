@@ -7,6 +7,13 @@ import (
 	lhttp "github.com/ha-dev/banking/internal/http"
 )
 
+/*
+A route is a section of Express code that associates an HTTP verb ( GET , POST , PUT , DELETE , etc.), a URL path/pattern
+  - Name
+  - Method
+  - Path
+  - Handler
+*/
 func AccountsRoutes(th accounts.IAccount) []Route {
 	return []Route{
 		{

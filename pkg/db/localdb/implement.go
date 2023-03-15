@@ -14,6 +14,14 @@ type localdbConfig struct {
 
 var accounts []*eAccount.Account
 
+//go:generate mockgen -destination=../../../testutils/mocks/pkg/db/localdb_mock.go -package=mocks -source=interface.go
+
+/*
+create object for provide database storage functionality
+need option for getting database mock file
+return  object for using database record functionality
+*/
+
 func New(ops ...Option) (ILocalDB, error) {
 	s := new(localdbConfig)
 	for _, fn := range ops {
@@ -32,32 +40,4 @@ func New(ops ...Option) (ILocalDB, error) {
 	log.Println("Load Accounts Complete")
 	//
 	return s, nil
-}
-
-// ────────────────────────────────────────────────────────────────────────────────
-func (u *localdbConfig) Get(FieldName string) (*eAccount.Account, error) {
-	for _, v := range accounts {
-		if v.ID == FieldName || v.Balance == FieldName || v.Name == FieldName {
-			return v, nil
-		}
-	}
-
-	return nil, ErrNotFound
-}
-
-// ────────────────────────────────────────────────────────────────────────────────
-func (u *localdbConfig) List() []*eAccount.Account {
-	return accounts
-}
-
-// ────────────────────────────────────────────────────────────────────────────────
-func (u *localdbConfig) Update(acc *eAccount.Account) error {
-	for i := range accounts {
-		if accounts[i].ID == acc.ID {
-			accounts[i].Name = acc.Name
-			accounts[i].Balance = acc.Balance
-			return nil
-		}
-	}
-	return ErrNotFound
 }

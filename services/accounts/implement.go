@@ -11,6 +11,13 @@ type iAccount struct {
 var _ IAccount = &iAccount{}
 
 //go:generate mockgen -destination=../../testutils/mocks/service/iAccount_mock.go -package=mocks -source=interface.go
+
+/*
+create object service for handling service account operation
+need option for getting model account provider module
+return service object for using  logic account functionality
+*/
+
 func New(ops ...Option) (IAccount, error) {
 	s := new(iAccount)
 	for _, fn := range ops {

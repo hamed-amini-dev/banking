@@ -7,6 +7,9 @@ import (
 	"github.com/ha-dev/banking/internal/response"
 )
 
+/*
+Set Browser origin
+*/
 func setOrigins(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 	(*w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
@@ -14,8 +17,7 @@ func setOrigins(w *http.ResponseWriter) {
 }
 
 /*
-	respondJSON- Returns the response in JSON format to the response
-
+respondJSON- Returns the response in JSON format to the response
 writer | Adds content type and charset to the header map | Sends an
 HTTP response header with the provided status code.
 */

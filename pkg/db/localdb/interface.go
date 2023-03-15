@@ -4,6 +4,7 @@ import (
 	eAccount "github.com/ha-dev/banking/internal/entities/account"
 )
 
+// Provide sign interface function
 type ILocalDB interface {
 	// ─── TABALES OPERATION ──────────────────────────────────────────────────────────
 	//Get One Account Base on Filed Name

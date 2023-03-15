@@ -4,6 +4,7 @@ import (
 	eAccount "github.com/ha-dev/banking/internal/entities/account"
 )
 
+// define sign interface functions
 type IAccount interface {
 	//List all the account that exist in DB
 	List() ([]*eAccount.Account, error)

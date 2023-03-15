@@ -1,7 +1,6 @@
 package account
 
 import (
-	eAccount "github.com/ha-dev/banking/internal/entities/account"
 	"github.com/ha-dev/banking/pkg/db/localdb"
 )
 
@@ -12,9 +11,14 @@ type iAccount struct {
 var _ IAccount = &iAccount{}
 
 //go:generate mockgen -destination=../../testutils/mocks/model/iAccount_mock.go -package=mocks -source=interface.go
+
+/*
+create object model for handling database operation
+need option for getting database provider module
+return model object for using database record functionality
+*/
 func New(ops ...Option) (IAccount, error) {
 	s := new(iAccount)
-
 	for _, fn := range ops {
 		err := fn(s)
 		if err != nil {
@@ -22,22 +26,4 @@ func New(ops ...Option) (IAccount, error) {
 		}
 	}
 	return s, nil
-}
-
-// ────────────────────────────────────────────────────────────────────────────────
-// List all the account that exist in DB
-func (s *iAccount) List() ([]*eAccount.Account, error) {
-	return s.db.List(), nil
-}
-
-// ────────────────────────────────────────────────────────────────────────────────
-// Get the account that exist in DB
-func (s *iAccount) Get(ID string) (*eAccount.Account, error) {
-	return s.db.Get(ID)
-}
-
-// ────────────────────────────────────────────────────────────────────────────────
-// Update the account that exist in DB
-func (s *iAccount) Update(acc *eAccount.Account) error {
-	return s.db.Update(acc)
 }

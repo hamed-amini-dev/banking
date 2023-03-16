@@ -27,13 +27,13 @@ func (c *iAccount) Transfer(param *TransferParams) (*eAccount.Account, error) {
 		return nil, err
 	}
 	//validate transfer
-	ok, err := c.validateTransfer(fromAccount, param.Balance)
+	result, err := c.validateTransfer(fromAccount, param.Balance)
 	if err != nil {
 		return nil, err
 	}
 	//if ok to transfer
 	//else inform user about transfer
-	if ok {
+	if result == 0 {
 		toAccount, err := c.model.Get(param.To)
 		if err != nil {
 			return nil, err
@@ -75,27 +75,38 @@ func (c *iAccount) Transfer(param *TransferParams) (*eAccount.Account, error) {
 		return nil, nil
 	}
 
-	return nil, ErrEnoughBalance
+	switch result {
+	case 2:
+		return nil, ErrBalanceNumber
+	case 3:
+		return nil, ErrEnoughBalance
+
+	}
+	return nil, err
 }
 
 // - validateTransfer Check Transfer from account with balance is validate or not
 // - Check have user enough balance to transfer
 
-func (c *iAccount) validateTransfer(fromAcc *eAccount.Account, balance string) (bool, error) {
+func (c *iAccount) validateTransfer(fromAcc *eAccount.Account, balance string) (int, error) {
 
 	accBalance, err := fromAcc.ConvertBalanceToNumber(fromAcc.GetBalance())
 	if err != nil {
-		return false, err
+		return 1, err
 	}
 
 	transferBalance, err := fromAcc.ConvertBalanceToNumber(balance)
 	if err != nil {
-		return false, err
+		return 1, err
+	}
+
+	if transferBalance <= 0 {
+		return 2, nil
 	}
 
 	if accBalance-transferBalance < 0 {
-		return false, nil
+		return 3, nil
 	} else {
-		return true, nil
+		return 0, nil
 	}
 }

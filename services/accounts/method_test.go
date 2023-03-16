@@ -127,7 +127,7 @@ func TestTransfer(t *testing.T) {
 
 	})
 
-	t.Run("transfer update faild 1", func(t *testing.T) {
+	t.Run("transfer update faild", func(t *testing.T) {
 		mockAccountRepo.EXPECT().Get("17f904c1-806f-4252-9103-74e7a5d3e340").Return(account1, nil)
 		mockAccountRepo.EXPECT().Get("3d253e29-8785-464f-8fa0-9e4b57699db9").Return(account2, nil)
 		mockAccountRepo.EXPECT().Update(gomock.Any()).Return(localdb.ErrNotFound)
@@ -321,7 +321,7 @@ func TestValidateTransfer(t *testing.T) {
 
 		result, err := service.validateTransfer(fromAccount, "40")
 		assert.Nil(t, err)
-		assert.Equal(t, true, result)
+		assert.Equal(t, 0, result)
 	})
 
 	t.Run("validate is false", func(t *testing.T) {
@@ -332,7 +332,7 @@ func TestValidateTransfer(t *testing.T) {
 
 		result, err := service.validateTransfer(fromAccount, "1000")
 		assert.Nil(t, err)
-		assert.Equal(t, false, result)
+		assert.Equal(t, 3, result)
 	})
 
 	t.Run("balance not valid", func(t *testing.T) {
@@ -342,7 +342,7 @@ func TestValidateTransfer(t *testing.T) {
 		}
 
 		result, _ := service.validateTransfer(fromAccount, "aa")
-		assert.Equal(t, false, result)
+		assert.Equal(t, 1, result)
 	})
 
 	t.Run("from acc balance not valid", func(t *testing.T) {
@@ -353,6 +353,6 @@ func TestValidateTransfer(t *testing.T) {
 
 		fromAccount.Balance = "aaa"
 		result, _ := service.validateTransfer(fromAccount, "40")
-		assert.Equal(t, false, result)
+		assert.Equal(t, 1, result)
 	})
 }

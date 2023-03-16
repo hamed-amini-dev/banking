@@ -1,3 +1,19 @@
+/*
+Banking Transferring money between account Go programs.
+
+loading config file with viper package and also using cli package for getting argument from console
+initialize all module after loading configuration and then run service
+
+Usage:
+
+main [arg]
+
+The args are:
+
+s
+Run service and loading mock database
+Ready to transfer balance between account
+*/
 package main
 
 import (
@@ -5,11 +21,9 @@ import (
 	"github.com/ha-dev/banking/pkg/config"
 )
 
-/*
-Load Configuration File
-Create New Commander package for getting args console
-Run Commander package with args inputted
-*/
+// Load Configuration File
+// Create New Commander package for getting args console
+// Run Commander package with args inputted
 func main() {
 
 	//load configuration with viper and init it

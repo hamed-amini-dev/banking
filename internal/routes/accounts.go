@@ -1,12 +1,5 @@
 package routes
 
-import (
-	"net/http"
-
-	"github.com/ha-dev/banking/internal/handler/accounts"
-	lhttp "github.com/ha-dev/banking/internal/http"
-)
-
 /*
 A route is a section of Express code that associates an HTTP verb ( GET , POST , PUT , DELETE , etc.), a URL path/pattern
   - Name
@@ -14,6 +7,15 @@ A route is a section of Express code that associates an HTTP verb ( GET , POST ,
   - Path
   - Handler
 */
+
+import (
+	"net/http"
+
+	"github.com/ha-dev/banking/internal/handler/accounts"
+	lhttp "github.com/ha-dev/banking/internal/http"
+)
+
+// Define all end point and assign to the handling function
 func AccountsRoutes(th accounts.IAccount) []Route {
 	return []Route{
 		{

@@ -13,4 +13,5 @@ import (
 
 var (
 	ErrServiceUnavailableMessage = status.Error(codes.Unavailable, "service unavailable message")
+	ErrMethodNotSupported        = status.Error(codes.Canceled, "request method not support")
 )

@@ -1,5 +1,13 @@
 package http
 
+/*
+default http handler use for all end point request for :
+ - add origin to response
+ - validate request (validate token ...)
+ - create custom http request for adding some item we need use to all handler for example session user
+ - run handler functions
+*/
+
 import (
 	"net/http"
 

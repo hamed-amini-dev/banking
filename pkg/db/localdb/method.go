@@ -2,10 +2,9 @@ package localdb
 
 import eAccount "github.com/ha-dev/banking/internal/entities/account"
 
-/*
- Get account record from in-memory database
- - ID string
-*/
+//  Get account record from in-memory database
+//  - ID string
+
 func (u *localdbConfig) Get(FieldName string) (*eAccount.Account, error) {
 	for _, v := range accounts {
 		if v.ID == FieldName || v.Balance == FieldName || v.Name == FieldName {
@@ -16,23 +15,19 @@ func (u *localdbConfig) Get(FieldName string) (*eAccount.Account, error) {
 	return nil, ErrNotFound
 }
 
-/*
-  List all the account that exist in DB
-  - result array of account from in-memory database
-*/
+//   List all the account that exist in DB
+//   - result array of account from in-memory database
 
 func (u *localdbConfig) List() []*eAccount.Account {
 	return accounts
 }
 
-/*
-  Update the account that exist in DB
-  - account struct
-    -- ID
-	-- Name
-	-- Balance
-  return error if account not exist on in-memory database
-*/
+//   Update the account that exist in DB
+//   - account struct
+//     -- ID
+// 	-- Name
+// 	-- Balance
+//   return error if account not exist on in-memory database
 
 func (u *localdbConfig) Update(acc *eAccount.Account) error {
 	for i := range accounts {

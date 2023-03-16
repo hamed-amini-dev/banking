@@ -1,5 +1,8 @@
 package request
 
+/*
+Define new customize http request
+*/
 import (
 	"bufio"
 	"bytes"
@@ -47,11 +50,10 @@ func NewGenericHTTPRequestFromHTTPRequest(r *http.Request) (*GenericRequest, err
 	return gr, nil
 }
 
-/*
-String- Returns the request as a string | Compacts the request by omiting
-the insignificant space characters and appends it to compactBody which is
-of type *bytes.Buffer.
-*/
+// String- Returns the request as a string | Compacts the request by omiting
+// the insignificant space characters and appends it to compactBody which is
+// of type *bytes.Buffer.
+
 func (req *GenericRequest) String() string {
 	request, err := json.Marshal(req)
 	if err != nil {

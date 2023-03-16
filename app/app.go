@@ -1,10 +1,19 @@
 package app
 
+/*
+App package Loading and managing layer of systems and modules
+this package use Gorrila package for handling endpoints
+important loading item are
+ - Database
+ - Services
+ - Models
+ - Handlers
+
+*/
 import (
 	"fmt"
 	"log"
 	"net/http"
-	"sync"
 
 	"github.com/gorilla/mux"
 	hAccount "github.com/ha-dev/banking/internal/handler/accounts"
@@ -20,9 +29,9 @@ type app struct {
 	router *mux.Router
 }
 
-var (
+/* var (
 	onceInitConfig = sync.Once{}
-)
+) */
 
 // NewApp - Loads the configuration file for setting up the server
 // and returns the app server

@@ -1,5 +1,13 @@
 package cmd
 
+/*
+Config and assign args to the objects
+Define args command with this item
+ - Name
+ - Aliases
+ - Usage
+ - Action
+*/
 import (
 	"os"
 
@@ -10,11 +18,10 @@ type Commander struct {
 	app cli.App
 }
 
-/*
-New Commander initialize for getting args from console
-configure command args console
-assign command args to objects
-*/
+// New Commander initialize for getting args from console
+// configure command args console
+// assign command args to objects
+
 func New() (*Commander, error) {
 	var commander Commander
 
@@ -24,7 +31,7 @@ func New() (*Commander, error) {
 			{
 				Name:    "startServer",
 				Aliases: []string{"s", "serve"},
-				Usage:   "start http server",
+				Usage:   "start banking service for listening request",
 				Action:  commander.RunServer,
 			},
 		},
@@ -33,9 +40,8 @@ func New() (*Commander, error) {
 	return &commander, nil
 }
 
-/*
-Run Commander object previously initialized
-*/
+// Run Commander object previously initialized
+
 func (c *Commander) Run() error {
 	return c.app.Run(os.Args)
 }

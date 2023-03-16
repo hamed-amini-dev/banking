@@ -1,5 +1,10 @@
 package accounts
 
+/*
+implement business logic of account
+ - need model for handling item and perform logic operation on data
+*/
+
 import (
 	mAccount "github.com/ha-dev/banking/models/account"
 )
@@ -12,11 +17,9 @@ var _ IAccount = &iAccount{}
 
 //go:generate mockgen -destination=../../testutils/mocks/service/iAccount_mock.go -package=mocks -source=interface.go
 
-/*
-create object service for handling service account operation
-need option for getting model account provider module
-return service object for using  logic account functionality
-*/
+// create object service for handling service account operation
+// need option for getting model account provider module
+// return service object for using  logic account functionality
 
 func New(ops ...Option) (IAccount, error) {
 	s := new(iAccount)

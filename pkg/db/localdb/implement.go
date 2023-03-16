@@ -1,5 +1,9 @@
 package localdb
 
+/*
+database engine module for crud standad operation on database
+this module create standard function for using database provider
+*/
 import (
 	"encoding/json"
 	"io/ioutil"
@@ -16,11 +20,9 @@ var accounts []*eAccount.Account
 
 //go:generate mockgen -destination=../../../testutils/mocks/pkg/db/localdb_mock.go -package=mocks -source=interface.go
 
-/*
-create object for provide database storage functionality
-need option for getting database mock file
-return  object for using database record functionality
-*/
+// create object for provide database storage functionality
+// need option for getting database mock file
+// return  object for using database record functionality
 
 func New(ops ...Option) (ILocalDB, error) {
 	s := new(localdbConfig)

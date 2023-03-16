@@ -1,5 +1,10 @@
 package config
 
+/*
+initialize viper module for loading file and load default config
+loading default most important config if user don't set on config file
+*/
+
 import (
 	"github.com/ha-dev/banking/pkg/constants"
 	"github.com/spf13/pflag"

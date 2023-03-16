@@ -29,10 +29,10 @@ func TestListAll(t *testing.T) {
 		})
 
 		//
-		service := iAccount{
+		model := iAccount{
 			db: mockLocalRepo,
 		}
-		list, err := service.List()
+		list, err := model.List()
 		assert.Nil(t, err)
 		assert.Equal(t, "3d253e29-8785-464f-8fa0-9e4b57699db9", list[0].ID)
 		assert.Equal(t, "17f904c1-806f-4252-9103-74e7a5d3e340", list[1].ID)
@@ -52,10 +52,10 @@ func TestGet(t *testing.T) {
 	t.Run("get user data is ok", func(t *testing.T) {
 		mockLocalRepo.EXPECT().Get("3d253e29-8785-464f-8fa0-9e4b57699db9").Return(account, nil)
 		//
-		service := iAccount{
+		model := iAccount{
 			db: mockLocalRepo,
 		}
-		fetchAccount, err := service.Get("3d253e29-8785-464f-8fa0-9e4b57699db9")
+		fetchAccount, err := model.Get("3d253e29-8785-464f-8fa0-9e4b57699db9")
 		assert.Nil(t, err)
 		assert.Equal(t, "3d253e29-8785-464f-8fa0-9e4b57699db9", fetchAccount.ID)
 
@@ -64,10 +64,10 @@ func TestGet(t *testing.T) {
 	t.Run("get user not find", func(t *testing.T) {
 		mockLocalRepo.EXPECT().Get(gomock.Any()).Return(nil, localdb.ErrNotFound)
 		//
-		service := iAccount{
+		model := iAccount{
 			db: mockLocalRepo,
 		}
-		_, err := service.Get("3d253e29-8785-464f-8fa0-9e4b57699db777")
+		_, err := model.Get("3d253e29-8785-464f-8fa0-9e4b57699db777")
 		assert.ErrorIs(t, localdb.ErrNotFound, err)
 	})
 
@@ -84,19 +84,19 @@ func TestUpdate(t *testing.T) {
 	}
 	t.Run("update success", func(t *testing.T) {
 		mockLocalRepo.EXPECT().Update(account).Return(nil)
-		service := iAccount{
+		model := iAccount{
 			db: mockLocalRepo,
 		}
-		err := service.Update(account)
+		err := model.Update(account)
 		assert.Nil(t, err)
 	})
 
 	t.Run("update fail", func(t *testing.T) {
 		mockLocalRepo.EXPECT().Update(account).Return(localdb.ErrNotFound)
-		service := iAccount{
+		model := iAccount{
 			db: mockLocalRepo,
 		}
-		err := service.Update(account)
+		err := model.Update(account)
 		assert.ErrorIs(t, localdb.ErrNotFound, err)
 	})
 
@@ -107,12 +107,12 @@ func TestOptionDB(t *testing.T) {
 	defer c.Finish()
 	mockLocalRepo := mocks.NewMockILocalDB(c)
 
-	service := &iAccount{
+	model := &iAccount{
 		db: mockLocalRepo,
 	}
 
 	f := OptionDB(mockLocalRepo)
-	err := f(service)
+	err := f(model)
 	assert.Nil(t, err)
 }
 

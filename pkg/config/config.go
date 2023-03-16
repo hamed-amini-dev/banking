@@ -51,7 +51,7 @@ func initDefault() error {
 
 	// ─── SERVER CONFIGURATION ───────────────────────────────────────────────────────
 
-	pflag.Int(constants.Port, constants.PortDefault, "grpc port of server")
+	pflag.Int(constants.Port, constants.PortDefault, "http port of server")
 	viper.SetDefault(constants.Port, constants.PortDefault)
 
 	return nil

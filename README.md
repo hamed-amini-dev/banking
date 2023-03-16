@@ -1,24 +1,55 @@
-# banking
+# Accounts Service
 
-# Binaries for programs and plugins
+## Build
 
-_.exe
-_.exe~
-_.dll
-_.so
-\*.dylib
-.idea
+#### build for windows
 
-# Test binary, built with `go test -c`
+```
+make build-windows
+```
 
-\*.test
+#### build for linux
 
-# Output of the go coverage tool, specifically when used with LiteIDE
+```
+make build-linux
+```
 
-\*.out
+#### build for mac
 
-# Dependency directories (remove the comment below to include it)
+```
+make build-mac
+```
 
-# vendor/
+## Run tests
 
-.vscode
+make test
+
+## API requests
+
+### Get Account Information
+
+#### Route Url Schema= "http://localhost:8080/accounts/{account-id}"
+
+```
+curl -X "GET"  "http://localhost:8080/accounts/17f904c1-806f-4252-9103-74e7a5d3e340"
+```
+
+### Get List All Account
+
+```
+curl -X "GET"  "http://localhost:8080/accounts"
+```
+
+### Transfer Balance
+
+```
+curl -X POST -H "Content-type: application/json" \
+-d '{
+	"from":"17f904c1-806f-4252-9103-74e7a5d3e340",
+	"to":"3d253e29-8785-464f-8fa0-9e4b57699db9",
+	"balance":"40"
+}' 'http://localhost:8080/accounts'
+
+
+
+```

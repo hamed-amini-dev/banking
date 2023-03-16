@@ -356,3 +356,27 @@ func TestValidateTransfer(t *testing.T) {
 		assert.Equal(t, 1, result)
 	})
 }
+
+func TestOptionDB(t *testing.T) {
+	c := gomock.NewController(t)
+	defer c.Finish()
+	mockAccountRepo := mocks.NewMockIAccount(c)
+
+	service := &iAccount{
+		model: mockAccountRepo,
+	}
+
+	f := InitOptionAccountModel(mockAccountRepo)
+	err := f(service)
+	assert.Nil(t, err)
+}
+
+func TestNew(t *testing.T) {
+	c := gomock.NewController(t)
+	defer c.Finish()
+	mockAccountRepo := mocks.NewMockIAccount(c)
+
+	f := InitOptionAccountModel(mockAccountRepo)
+	_, err := New(f)
+	assert.Nil(t, err)
+}

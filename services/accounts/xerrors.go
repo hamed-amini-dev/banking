@@ -13,4 +13,5 @@ import (
 
 var (
 	ErrEnoughBalance = status.Error(codes.FailedPrecondition, "doesn't have enough balance to transfer")
+	ErrBalanceNumber = status.Error(codes.FailedPrecondition, "balance number not valid")
 )
